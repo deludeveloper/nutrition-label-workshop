@@ -301,7 +301,7 @@ details.research{border-top-color:var(--tan)}
   .body{padding:0 14px 14px}
 }
 
-.stepmenu select{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--ink);background:#fff;border:0;border-radius:6px;padding:9px 12px;max-width:62vw;cursor:pointer}
+.stepmenu select{font-family:var(--sans);font-size:15px;font-weight:600;color:#0e2440;background:#fff;border:0;border-radius:6px;padding:9px 12px;max-width:62vw;cursor:pointer}
 .stepmenu select:hover{filter:brightness(.97)}
 .front{gap:20px;align-items:center}
 .front img{width:170px}
@@ -344,6 +344,7 @@ details.research{border-top-color:var(--tan)}
 <header class="band"><div class="in">
   <button class="brand" data-go="">How to read a nutrition label</button>
   <div class="topright">
+    <button class="homebtn" id="theme" aria-label="Switch between light and dark"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4 4l1.4 1.4M14.6 14.6L16 16M16 4l-1.4 1.4M5.4 14.6L4 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span id="themelabel">Light</span></button>
     <button class="homebtn" data-go="" aria-label="Home"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9l7-6 7 6M5.5 8v8h9V8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Home</span></button>
     <label class="stepmenu"><span class="sr">Jump to a step</span><select id="jump"></select></label>
   </div>
@@ -1044,6 +1045,17 @@ document.addEventListener('keydown', e=>{
   const c = e.target.closest && e.target.closest('.card[role=button]');
   if(c && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); c.click(); }
 });
+const themeBtn = document.getElementById('theme'), themeLabel = document.getElementById('themelabel');
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeLabel.textContent = t === 'dark' ? 'Light' : 'Dark';
+  try { localStorage.setItem('label-theme', t); } catch(e){}
+}
+let saved = null;
+try { saved = localStorage.getItem('label-theme'); } catch(e){}
+setTheme(saved || 'light');
+themeBtn.onclick = () => setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+
 window.addEventListener('hashchange', route);
 route();
 
