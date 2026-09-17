@@ -337,6 +337,38 @@ details.research{border-top-color:var(--tan)}
 .ptitle{font-family:var(--display);font-weight:700;font-size:20px}
 .pdesc{grid-column:2;color:var(--muted);font-size:16px;line-height:1.35}
 @media (max-width:900px){.plan{display:none}}
+
+details.sub{margin:12px 0;border-left:4px solid var(--tan);padding-left:14px}
+details.sub>summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:19px;color:var(--accent);list-style:none}
+details.sub>summary::-webkit-details-marker{display:none}
+details.sub>summary::before{content:"+ ";font-weight:400}
+details.sub[open]>summary::before{content:"– "}
+details.sub[open]>summary{margin-bottom:8px}
+details.sub p:last-child{margin-bottom:0}
+
+.bartabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.bartab{border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:8px 16px;font-family:var(--sans);font-weight:600;font-size:16px;cursor:pointer}
+.bartab.done{border-color:var(--accent);color:var(--accent)}
+.bartab.now{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.cmpwrap{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:26px;align-items:start}
+.cmpshot .shot{width:100%}
+.tapnote{font-size:14px;color:var(--muted);margin:6px 0 0}
+.cmpform{display:flex;flex-direction:column;gap:12px;min-width:0}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap}
+.checked{background:var(--panel);border-left:6px solid var(--tan);padding:12px 14px}
+.checked .out{margin:0 0 6px}
+.checked p{margin:0 0 10px}
+@media (max-width:900px){
+  .cmpwrap{grid-template-columns:minmax(0,1fr);gap:14px}
+  .bartab{padding:7px 13px;font-size:15px}
+  .btnrow .btn{flex:1 1 auto}
+}
+
+.finish{align-items:center}
+.finishcard{background:var(--panel);color:var(--ink);border-radius:10px;border-top:10px solid var(--accent);padding:26px 26px 22px;max-width:520px;width:100%;text-align:left}
+.fdeck{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.fmsg{font-family:var(--display);font-weight:700;font-size:clamp(24px,4.5vw,30px);line-height:1.15;margin:0 0 20px}
+.finishcard .btnrow{gap:10px}
 </style>
 
 </head>
@@ -390,6 +422,8 @@ const SRC = {
   dimeglio:["DiMeglio & Mattes 2000, Int J Obesity: liquid vs. solid calories","https://doi.org/10.1038/sj.ijo.0801229"],
   sacks:["Sacks et al. 2009, NEJM: POUNDS Lost diet trial","https://doi.org/10.1056/NEJMoa0804748"],
   gardner:["Gardner et al. 2018, JAMA: DIETFITS low-fat vs. low-carb trial","https://doi.org/10.1001/jama.2018.0245"],
+  frying:["Choe & Min 2007, J Food Science: the chemistry of deep-fat frying oils","https://doi.org/10.1111/j.1750-3841.2007.00352.x"],
+  ramsden:["Ramsden et al. 2016, BMJ: re-analysis of the Minnesota Coronary Experiment","https://doi.org/10.1136/bmj.i1246"],
   jf:["Johnson & Fritsche 2012, J Acad Nutr Diet: linoleic acid and inflammation","https://doi.org/10.1016/j.jand.2012.03.029"],
   aha2017:["Sacks et al. 2017, Circulation: AHA advisory on dietary fats","https://doi.org/10.1161/CIR.0000000000000510"],
   chassaing15:["Chassaing et al. 2015, Nature: emulsifiers and gut inflammation in mice","https://doi.org/10.1038/nature14232"],
@@ -629,8 +663,27 @@ const PAGES = {
     ['trans','The trans fat rounding trick',`<p>A label can say 0g trans fat if a serving has less than 0.5g. The FDA has largely removed partially hydrogenated oils from food, but check the ingredient list on older or imported products.</p>`],
     ['seed','Seed oils: myth vs. evidence',`<p><b>“They cause inflammation.”</b> Controlled trials in healthy adults found almost no evidence that linoleic acid, the main fat in seed oils, raises inflammatory markers.</p>
       <p><b>“They’re bad for your heart.”</b> The American Heart Association recommends unsaturated oils like these over butter and other saturated fats.</p>
-      <p><b>What’s real:</b> oil reheated again and again for deep frying breaks down, and seed oils show up mostly in fried and ultra-processed food. Cutting back on those foods is the useful takeaway.</p>`]
-  ], research:['aha2017','jf']},
+      <p><b>What’s real:</b> oil reheated again and again for deep frying breaks down, and seed oils show up mostly in fried and ultra-processed food. Cutting back on those foods is the useful takeaway.</p>
+      <details class="sub"><summary>What “breaking down” actually means</summary>
+        <p>The fats in any oil are chains with double bonds in them, and double bonds are chemically reactive. Heat, oxygen, and time break them apart, and each round of frying does more damage.</p>
+        <ul>
+          <li><b>Oxidation.</b> Oxygen attacks the double bonds and forms unstable compounds that fall apart into aldehydes. That’s the acrid smell of old fryer oil, and some of those compounds are irritants.</li>
+          <li><b>Polymerization.</b> Fragments link up into bigger molecules: the sticky varnish on a well-used pan.</li>
+          <li><b>Hydrolysis.</b> Water from the food splits fats apart, which lowers the smoke point, so each reuse degrades faster than the last.</li>
+        </ul>
+        <p>These are measured together as “total polar compounds,” and several countries make commercial fryers discard the oil at around 24–27%. The more unsaturated the oil, the faster this happens, so seed oils are more vulnerable than olive oil.</p>
+        <p><b>At home:</b> frying once in fresh oil at a sensible temperature is a minor issue. A restaurant fryer running the same oil for days is a different story.</p>
+      </details>
+      <details class="sub"><summary>So is it really just ultra-processed food?</summary>
+        <p>Mostly, but not entirely.</p>
+        <ul>
+          <li><b>The confounding part.</b> People who eat the most seed oil are largely eating the most fried food, chips, and packaged snacks. The oil comes along with a way of eating that predicts worse health on its own.</li>
+          <li><b>What breaks the confounding.</b> Controlled trials separate the two. Giving people linoleic acid on its own doesn’t raise inflammatory markers, and swapping saturated fat for these oils lowers LDL and heart events. If the oil itself were the problem, those trials should have shown it.</li>
+          <li><b>What that doesn’t explain.</b> The popular claims also rest on reasoning that sounded plausible but didn’t hold up, mainly that omega-6 turns into arachidonic acid and therefore drives inflammation. And two older trials people cite used margarines loaded with trans fat, which confuses the fat being tested with the processing it went through.</li>
+        </ul>
+        <p>The honest summary: the pattern is what matters, not the bottle.</p>
+      </details>`]
+  ], research:['aha2017','jf','frying','ramsden']},
 
   sodium:{title:'Sodium', crumb:'Sodium', on:['sodium'], lede:'Most sodium comes from packaged and restaurant food, not the salt shaker.', sections:[
     ['dv','Using the label',`<p>The Daily Value is 2,300mg. A serving with 20% DV or more is high.</p>`],
@@ -744,7 +797,7 @@ function tourHTML(id){
   return `<nav class="tour" aria-label="Walkthrough">
     ${i > 0 ? `<button class="prev" data-go="${prev}">Back<small>${PAGES[prev].title}</small></button>` : `<button class="prev" data-go="">Back<small>The label</small></button>`}
     <span class="count">Step ${i+1} of ${TOUR.length}</span>
-    ${next ? `<button class="next" data-go="${next}">Next<small>${PAGES[next].title}</small></button>` : `<button class="next" data-go="">Finish<small>Back to the label</small></button>`}
+    ${next ? `<button class="next" data-go="${next}">Next<small>${PAGES[next].title}</small></button>` : `<button class="next" data-finish>Finish<small>That’s the workshop</small></button>`}
   </nav>`;
 }
 
@@ -758,7 +811,7 @@ function titleRow(id, title){
   return `<div class="titlerow">
     <button class="arrow" data-go="${prev}" aria-label="Back: ${prev ? PAGES[prev].title : 'the label'}">${CHEV('l')}</button>
     <div class="tt"><p class="stepno">Step ${ti+1} of ${TOUR.length} · ${part}</p><h1 class="t">${title}</h1></div>
-    <button class="arrow nx" data-go="${next}" aria-label="Next: ${next ? PAGES[next].title : 'finish'}">${CHEV('r')}</button>
+    <button class="arrow nx" ${next ? `data-go="${next}"` : 'data-finish'} aria-label="Next: ${next ? PAGES[next].title : 'finish'}">${CHEV('r')}</button>
   </div>`;
 }
 
@@ -885,38 +938,55 @@ function claimsGame(root){
 
 function rankGame(root){
   const blank = () => BARS.map(() => ({}));
-  let entries = blank(), checked = false, pick = null, reasons = [];
+  const short = ['Clif','Nature Valley','RXBAR','Quest'];
+  let entries = blank(), done = [false,false,false,false], cur = 0, showTable = false, pick = null, reasons = [];
+  const ratio = a => (a.pro / a.cal * 100);
   const read = () => {
     root.querySelectorAll('[data-cf]').forEach(el => {
-      const [i,k] = el.dataset.cf.split(':');
-      entries[+i][k] = el.type === 'checkbox' ? el.checked : (el.value === '' ? null : +el.value);
+      const k = el.dataset.cf;
+      entries[cur][k] = el.type === 'checkbox' ? el.checked : (el.value === '' ? null : +el.value);
     });
   };
-  const ratio = a => (a.pro / a.cal * 100);
-  const draw = () => {
-    let right = 0, total = 0;
-    const cols = BARS.map((b,i) => {
-      const e = entries[i];
-      const nums = CMP_NUM.map(([k,lab,u,ph,help]) => {
-        let cls = '', hint = '';
-        if(checked){ total++; const ok = e[k] === b.ans[k]; if(ok) right++; cls = ok ? ' ok' : ' bad'; hint = ok ? '' : `<span class="hint2">Label: ${b.ans[k]}${u}</span>`; }
-        return `<label class="cf${cls}${help?' count':''}"><span>${lab}${u?` (${u})`:''}</span>${help?`<small class="cfhelp">${help}</small>`:''}<input type="number" min="0" step="1" inputmode="numeric" placeholder="${ph}" data-cf="${i}:${k}" value="${e[k] ?? ''}" ${checked?'disabled':''}>${hint}</label>`;
-      }).join('');
-      const flags = CMP_FLAG.map(([k,lab]) => {
-        let cls = '';
-        if(checked){ total++; const ok = !!e[k] === b.ans[k]; if(ok) right++; cls = ok ? ' ok' : ' bad'; }
-        const hint = checked && (!!e[k] !== b.ans[k]) ? `<span class="hint2">${b.ans[k] ? 'Yes, it has this' : 'No, it doesn’t'}</span>` : '';
-        return `<label class="cflag${cls}"><input type="checkbox" data-cf="${i}:${k}" ${e[k]?'checked':''} ${checked?'disabled':''}> ${lab}${hint}</label>`;
-      }).join('');
-      return `<div class="barcol">
-        <div class="barhead"><span class="nm">${b.name}</span><span class="facts">${b.flavor}</span></div>
-        <button class="shot" data-zoom="${b.img}" aria-label="Enlarge the ${b.name} label"><img src="${IMGS[b.img]}" alt="${b.name} ${b.flavor} Nutrition Facts label and ingredient list"></button>
-        <div class="cform">${nums}<div class="cflags"><span class="flagtitle">On the ingredient list</span>${flags}</div></div>
-      </div>`;
-    }).join('');
+  const score = i => {
+    const e = entries[i], a = BARS[i].ans;
+    let right = 0, total = CMP_NUM.length + CMP_FLAG.length;
+    CMP_NUM.forEach(([k]) => { if(e[k] === a[k]) right++; });
+    CMP_FLAG.forEach(([k]) => { if(!!e[k] === a[k]) right++; });
+    return [right, total];
+  };
 
+  const panel = () => {
+    const b = BARS[cur], e = entries[cur], checked = done[cur];
+    const nums = CMP_NUM.map(([k,lab,u,ph,help]) => {
+      let cls = '', hint = '';
+      if(checked){ const ok = e[k] === b.ans[k]; cls = ok ? ' ok' : ' bad'; hint = ok ? '' : `<span class="hint2">Label says ${b.ans[k]}${u}</span>`; }
+      return `<label class="cf${cls}${help?' count':''}"><span>${lab}${u?` (${u})`:''}</span>${help?`<small class="cfhelp">${help}</small>`:''}<input type="number" min="0" step="1" inputmode="numeric" placeholder="${ph}" data-cf="${k}" value="${e[k] ?? ''}" ${checked?'disabled':''}>${hint}</label>`;
+    }).join('');
+    const flags = CMP_FLAG.map(([k,lab]) => {
+      let cls = '', hint = '';
+      if(checked){ const ok = !!e[k] === b.ans[k]; cls = ok ? ' ok' : ' bad'; if(!ok) hint = `<span class="hint2">${b.ans[k] ? 'Yes, it has this' : 'No, it doesn’t'}</span>`; }
+      return `<label class="cflag${cls}"><input type="checkbox" data-cf="${k}" ${e[k]?'checked':''} ${checked?'disabled':''}> ${lab}${hint}</label>`;
+    }).join('');
+    const [right, total] = checked ? score(cur) : [0,0];
+    const allDone = done.every(Boolean);
+    const foot = checked
+      ? `<div class="checked"><p class="out">You matched ${right} of ${total}. This bar has ${ratio(b.ans).toFixed(1)}g of protein per 100 calories.</p>
+         <p>${b.note}</p>
+         <div class="btnrow">${cur < 3 ? `<button class="btn" data-next>Next bar: ${short[cur+1]}</button>` : ''}
+           ${allDone ? `<button class="btn" data-table>See the comparison</button>` : ''}
+           <button class="btn ghost" data-redo>Redo this bar</button></div></div>`
+      : `<div class="btnrow"><button class="btn" data-check>Check this bar</button>${cur < 3 ? `<button class="btn ghost" data-next>Skip to ${short[cur+1]}</button>` : ''}</div>`;
+    return `<div class="cmpwrap">
+      <div class="cmpshot"><button class="shot" data-zoom="${BARS[cur].img}" aria-label="Enlarge the ${b.name} label"><img src="${IMGS[b.img]}" alt="${b.name} ${b.flavor} Nutrition Facts label and ingredient list"></button>
+        <p class="tapnote">Tap the label to enlarge it.</p></div>
+      <div class="cmpform"><div class="barhead"><span class="nm">${b.name}</span><span class="facts">${b.flavor}</span></div>
+        <div class="cform">${nums}<div class="cflags"><span class="flagtitle">On the ingredient list</span>${flags}</div></div>
+        ${foot}</div></div>`;
+  };
+
+  const tableHTML = () => {
     const cell = (html, tone) => `<td class="${tone||''}">${tone==='good'?'<span class="tone">Good</span>':tone==='bad'?'<span class="tone">Watch</span>':''}${html}</td>`;
-    const table = checked ? `<h2>Side by side</h2>
+    return `<h2 id="cmp-table">Side by side</h2>
     <p class="legend"><span class="good">Good</span> <span class="bad">Watch</span> Uncolored cells are in between.</p>
     <div class="scroll"><table class="cmp">
       <tr><th></th>${BARS.map(b=>`<th>${b.name}</th>`).join('')}</tr>
@@ -933,22 +1003,63 @@ function rankGame(root){
     <div class="pickrow">${BARS.map((b,i)=>`<label class="pickopt${pick===i?' on':''}"><input type="radio" name="barpick" value="${i}" ${pick===i?'checked':''}> ${b.name}</label>`).join('')}</div>
     <p style="margin:12px 0 6px"><b>Why?</b> Choose any that apply.</p>
     <div class="pickrow">${['Most protein','Most fiber','Least added sugar','Simplest ingredients','No non-sugar sweeteners','Taste or price'].map(r=>`<label class="pickopt${reasons.includes(r)?' on':''}"><input type="checkbox" data-reason="${r}" ${reasons.includes(r)?'checked':''}> ${r}</label>`).join('')}</div>
-    ${pick!==null ? `<div class="verdict" style="margin-top:14px"><b>You picked ${BARS[pick].name}${reasons.length?` for: ${reasons.join(', ').toLowerCase()}`:''}.</b> There’s no single right answer. The best choice depends on what matters to you, and now you know how to read for it.</div>` : ''}` : '';
+    ${pick!==null ? `<div class="verdict" style="margin-top:14px"><b>You picked ${BARS[pick].name}${reasons.length?` for: ${reasons.join(', ').toLowerCase()}`:''}.</b> There’s no single right answer. The best choice depends on what matters to you, and now you know how to read for it.</div>` : ''}`;
+  };
 
-    root.innerHTML = `<div class="tool" style="margin-bottom:16px">
-        <div class="gamebar"><span>${checked ? `<b>You matched ${right} of ${total} answers.</b> Fields in red show what the label says.` : 'Tap a photo to enlarge it. Fill in what you can, then check your answers.'}</span>
-        <span style="display:flex;gap:10px;flex-wrap:wrap">${checked ? '' : '<button class="btn" data-ccheck>Check my answers</button><button class="btn ghost" data-cskip>Skip to the comparison</button>'}<button class="btn ghost" data-creset>Start over</button></span></div></div>
-      <div class="barsgrid">${cols}</div>${table}
+  const draw = (scrollTo) => {
+    root.innerHTML = `<div class="bartabs" role="tablist">${BARS.map((b,i)=>`<button class="bartab${i===cur?' now':''}${done[i]?' done':''}" data-tab="${i}" role="tab" aria-selected="${i===cur}">${done[i]?'✓ ':''}${short[i]}</button>`).join('')}</div>
+      ${panel()}
+      ${showTable ? tableHTML() : ''}
+      <div class="btnrow" style="margin-top:18px">${showTable ? '' : '<button class="btn ghost" data-skip>Skip ahead to the comparison</button>'}<button class="btn ghost" data-reset>Start over</button></div>
       <p style="font-size:14px;color:var(--muted);margin-top:12px">Label images from the brands’ online listings. Recipes change, so check the package you have.</p>`;
 
     root.querySelectorAll('[data-cf]').forEach(el => el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', read));
-    const ck = root.querySelector('[data-ccheck]'); if(ck) ck.onclick = () => { read(); checked = true; draw(); };
-    const sk = root.querySelector('[data-cskip]'); if(sk) sk.onclick = () => { read(); entries = BARS.map(b => ({...b.ans})); checked = true; draw(); };
-    root.querySelector('[data-creset]').onclick = () => { entries = blank(); checked = false; pick = null; reasons = []; draw(); };
+    root.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { if(!done[cur]) read(); cur = +b.dataset.tab; draw(); });
+    const on = (sel, fn) => { const el = root.querySelector(sel); if(el) el.onclick = fn; };
+    on('[data-check]', () => { read(); done[cur] = true; draw(); });
+    on('[data-next]', () => { if(!done[cur]) read(); cur++; draw('top'); });
+    on('[data-redo]', () => { done[cur] = false; draw(); });
+    on('[data-table]', () => { showTable = true; draw('table'); });
+    on('[data-skip]', () => { read(); entries = BARS.map(b => ({...b.ans})); done = [true,true,true,true]; showTable = true; draw('table'); });
+    on('[data-reset]', () => { entries = blank(); done = [false,false,false,false]; cur = 0; showTable = false; pick = null; reasons = []; draw('top'); });
     root.querySelectorAll('input[name="barpick"]').forEach(r => r.onchange = () => { pick = +r.value; draw(); });
     root.querySelectorAll('[data-reason]').forEach(c => c.onchange = () => { const v = c.dataset.reason; reasons = c.checked ? [...reasons, v] : reasons.filter(x => x !== v); draw(); });
+    if(scrollTo === 'table'){ const t = root.querySelector('#cmp-table'); if(t) t.scrollIntoView({block:'start', behavior:'smooth'}); }
+    else if(scrollTo === 'top'){ const t = root.querySelector('.bartabs'); if(t) t.scrollIntoView({block:'start'}); }
   };
   draw();
+}
+
+const FINISH = [
+  'Certified Label Reader, Class of 2026. You may now hold up grocery items and squint at them in public.',
+  'Congratulations. You are now legally insufferable in the snack aisle.',
+  'Side effects may include: reading the back of the box first, saying “that’s four kinds of sugar” out loud, and ruining granola bars for your friends.',
+  'That’s it. Protein and fiber fill you up, added sugar doesn’t, and everything else is a detail. Also, you’re insufferable now. Sorry.',
+  'Workshop complete. Read the label, trust your own read over the app, and eat the cookie anyway.'
+];
+let lastFinish = -1;
+function finishModal(){
+  let i;
+  do { i = Math.floor(Math.random() * FINISH.length); } while(FINISH.length > 1 && i === lastFinish);
+  lastFinish = i;
+  const ov = document.createElement('div');
+  ov.className = 'lightbox finish';
+  ov.setAttribute('role','dialog');
+  ov.setAttribute('aria-label','Workshop complete');
+  const card = document.createElement('div');
+  card.className = 'finishcard';
+  const render = () => {
+    card.innerHTML = `<p class="fdeck">Step 17 of 17</p><p class="fmsg">${FINISH[lastFinish]}</p>
+      <div class="btnrow"><button class="btn" data-done>Back to the start</button></div>`;
+    card.querySelector('[data-done]').onclick = () => { close(); location.hash = '#/'; };
+  };
+  const close = () => { ov.remove(); document.removeEventListener('keydown', esc); };
+  const esc = e => { if(e.key === 'Escape') close(); };
+  ov.onclick = e => { if(e.target === ov) close(); };
+  document.addEventListener('keydown', esc);
+  ov.appendChild(card); render();
+  document.body.appendChild(ov);
+  card.querySelector('[data-done]').focus();
 }
 
 function zoom(key){
@@ -1027,6 +1138,7 @@ function wire(){
 
 document.addEventListener('click', e=>{
   if(e.target.closest('.card a')) return;
+  if(e.target.closest('[data-finish]')){ finishModal(); return; }
   const go = e.target.closest('[data-go]');
   if(go){ const r = go.dataset.go; location.hash = r ? '#/'+r : '#/'; return; }
   const z = e.target.closest('[data-zoom]');
